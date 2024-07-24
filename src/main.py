@@ -5,7 +5,7 @@ from data.data_planet import Mercury
 
 
 def main():
-    print(round(Mercury['g0'], 4))
+    print(Mercury['g0'])
 
 
 if __name__ == "__main__":
