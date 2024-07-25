@@ -1,4 +1,4 @@
-from src.constants import G
+from src.constants import G, G_KM
 
 Sun = {
     'name'            : 'Sun',
@@ -57,7 +57,7 @@ Jupiter = {
     'ID'              : 500,
     'mass'            : 1.898e27,
     'mu'              : 1.26686e8,
-    'radius'          : 71490.0,   # km
+    'radius'          : 71490.0,
     'sma'             : 778.570e6,  # km
     'SOI'             : 48.2e6    # km
 }
@@ -67,7 +67,7 @@ Saturn = {
     'ID'              : 600,
     'mass'            : 1.8981e26,
     'mu'              : 1.8981e26 * G,
-    'radius'          : 60270,   # km
+    'radius'          : 60270,
     'sma'             : 778.6e6,  # km
     'SOI'             : 54.787e6    # km
 }
@@ -77,7 +77,7 @@ Uranus = {
     'ID'              : 700,
     'mass'            : 8.6811e24,
     'mu'              : 8.6811e24 * G,
-    'radius'          : 25560,   # km
+    'radius'          : 25560,
     'sma'             : 2872e6,  # km
     'SOI'             : 5.1785e7  # km
 }
@@ -87,7 +87,7 @@ Neptune = {
     'ID'              : 800,
     'mass'            : 1.0241e25,
     'mu'              : 1.0241e25 * G,
-    'radius'          : 24760,   # km
+    'radius'          : 24760,
     'sma'             : 4495e6,  # km
     'SOI'             : 8.6589e7  # km
 }
@@ -155,5 +155,6 @@ bodies = [
 
 
 for body in bodies:
-    body['radius_km'] = body['radius'] * 1000
-    body['g0'] = body['mu'] / body['radius_km']**2
+    body['radius_meters'] = body['radius'] * 1000
+    body['g0'] = body['mu'] / body['radius_meters']**2
+    #body['v0'] = (2 * body['mu'] / body['radius_meters'])**0.5

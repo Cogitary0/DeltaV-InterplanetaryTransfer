@@ -1,11 +1,16 @@
-from constants import G
-from data.data_planet import Mercury
-
-# from data.data_planet_ksp import DATA_PLANET as planet
+from constants import G, G_KM
+from data.data_planet import Earth
+from tools.astrodynamics import Orbit
 
 
 def main():
-    print(Mercury['g0'])
+    orbit = Orbit(False)
+
+    height = 100
+
+    print(orbit.transfer(Earth,
+                         Earth['radius'],
+                         Earth['radius']+height))
 
 
 if __name__ == "__main__":
