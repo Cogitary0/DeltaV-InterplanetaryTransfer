@@ -1,16 +1,14 @@
-from constants import G, G_KM
+from constants import G
 from data.data_planet import Earth
-from tools.astrodynamics import Orbit
+from tools.astrodynamics import transfer
 
 
 def main():
-    orbit = Orbit(False)
+    height = 100_000
 
-    height = 100
-
-    print(orbit.transfer(Earth,
-                         Earth['radius'],
-                         Earth['radius']+height))
+    print(transfer(Earth,
+                   Earth['radius_meters'],
+                   height))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from src.constants import G, G_KM
+from src.constants import G
 
 Sun = {
     'name'            : 'Sun',

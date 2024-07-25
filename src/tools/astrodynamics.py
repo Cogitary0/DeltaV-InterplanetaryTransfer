@@ -1,37 +1,45 @@
-from src.constants import G, G_KM, SQRT_2
+from src.constants import G, SQRT_2
 from math import sqrt
 
 
-class Orbit:
-    def __init__(self, q_convert_to_system_si: bool = True):
-        self.q_convert_to_system_si = q_convert_to_system_si if q_convert_to_system_si else False
+def transfer(body: dict,
+             height_start_orbit: float | int,
+             height_end_orbit: float | int
+             ) -> dict[str, float]:
 
-    def default_orbit_speed(self, body, height) -> float:
-        return ((2 * body["mu"] / (body['radius_meters'] + height)) ** 0.5) / (
-            1000 if self.q_convert_to_system_si else 1)
+    MU = body['mu']
+    R0 = height_start_orbit
+    R1 = height_start_orbit + height_end_orbit
+    SUM_R = R0 + R1
 
-    def orbit_speed(self, body, height):
-        ...
+    v0 = sqrt(MU / R0)
+    v1 = sqrt(MU / R1)
 
-    def transfer(self,
-                 body: dict,
-                 height_start_orbit: float | int,
-                 height_end_orbit: float | int
-                 ) -> dict[str, float]:
+    dV0 = sqrt(MU / R0) * (SQRT_2 * sqrt(R1 / SUM_R) - 1)
+    dV1 = v1 * (1 - sqrt(2 * R0 / SUM_R))
 
-        CONVERT_FACTOR = 1000 if self.q_convert_to_system_si else 1
+    return {"v0": v0,
+            "v1": v1,
+            "dV0": dV0,
+            "dV1": dV1}
 
-        MU = body['mass'] * G_KM
-        R0 = height_start_orbit
-        R1 = height_end_orbit
 
-        v0 = (MU / R0) ** 0.5
-        v1 = (MU / R1) ** 0.5
+def c3(body: dict, speed_spacecraft: float | int):
+    return (0.5 * speed_spacecraft**2) - (body['mu']/body['radius_meters'])
 
-        dV0 = sqrt(MU / R0) * (SQRT_2 * sqrt(R1 / (R0 + R1)) - 1)
-        dV1 = v1 * (1 - sqrt(2 * R0 / (R0 + R1)))
+def solve_ellipse_semi_major_axis(ap: float | int, pe: float | int) -> float: #sMa
+    rmax, rmin = max(ap, pe), min(ap, pe)
+    return (rmax + rmin) / 2
 
-        return {"v0": v0 / CONVERT_FACTOR,
-                "v1": v1 / CONVERT_FACTOR,
-                "dV0": dV0 / CONVERT_FACTOR,
-                "dV1": dV1 / CONVERT_FACTOR}
+def solve_ellipse_semi_minor_axis(ap: float | int, pe: float | int) -> float: #sma
+    rmax, rmin = max(ap, pe), min(ap, pe)
+    return sqrt(rmax * rmin)
+def energy(body: dict,
+           mass_spacecraft: float | int,
+           sma: float | int) -> float:
+    return (-body['mu'] * mass_spacecraft) / 2 * sma
+
+
+def parabolic_speed(body, height) -> float:
+    return (2 * body["mu"] / (body['radius_meters'] + height)) ** 0.5
+
