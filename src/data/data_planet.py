@@ -1,4 +1,5 @@
 from src.constants import G
+from src.tools.astrodynamics import solve_ellipse_semi_major_axis
 
 Sun = {
     'name'            : 'Sun',
@@ -45,9 +46,9 @@ Earth = {
 Mars = {
     'name'            : 'Mars',
     'ID'              : 400,
-    'mass'            : 6.39e23,
-    'mu'              : 4.282837362069909E+04,
-    'radius'          : 3397.0,
+    'mass'            : 6.4171e23,
+    'mu'              : 6.4171e23 * G,
+    'radius'          : 3389.5,
     'sma'             : 227.923e6,  # km
     'SOI'             : 0.578e6   # km
 }
@@ -55,8 +56,8 @@ Mars = {
 Jupiter = {
     'name'            : 'Jupiter',
     'ID'              : 500,
-    'mass'            : 1.898e27,
-    'mu'              : 1.26686e8,
+    'mass'            : 1.8982e27,
+    'mu'              : 1.8982e27 * G,
     'radius'          : 71490.0,
     'sma'             : 778.570e6,  # km
     'SOI'             : 48.2e6    # km
@@ -65,10 +66,10 @@ Jupiter = {
 Saturn = {
     'name'            : 'Saturn',
     'ID'              : 600,
-    'mass'            : 1.8981e26,
-    'mu'              : 1.8981e26 * G,
+    'mass'            : 5.6834e26,
+    'mu'              : 5.6834e26 * G,
     'radius'          : 60270,
-    'sma'             : 778.6e6,  # km
+    'sma'             : 1433.53e6,  # km
     'SOI'             : 54.787e6    # km
 }
 
@@ -157,4 +158,5 @@ bodies = [
 for body in bodies:
     body['radius_meters'] = body['radius'] * 1000
     body['g0'] = body['mu'] / body['radius_meters']**2
+    # body['period']
     #body['v0'] = (2 * body['mu'] / body['radius_meters'])**0.5

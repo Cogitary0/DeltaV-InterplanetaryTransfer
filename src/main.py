@@ -1,6 +1,6 @@
 from constants import G
-from data.data_planet import Earth
-from tools.astrodynamics import transfer
+from data.data_planet import *
+from tools.astrodynamics import *
 
 
 def main():
@@ -9,6 +9,8 @@ def main():
     print(transfer(Earth,
                    Earth['radius_meters'],
                    height))
+
+    print(orbital_period(Saturn, Saturn['sma']))
 
 
 if __name__ == "__main__":
