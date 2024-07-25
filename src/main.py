@@ -10,7 +10,7 @@ def main():
                    Earth['radius_meters'],
                    height))
 
-    print(orbital_period(Saturn, Saturn['sma']))
+    print(Pluto['period'])
 
 
 if __name__ == "__main__":
