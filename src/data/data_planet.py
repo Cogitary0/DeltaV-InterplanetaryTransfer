@@ -1,6 +1,5 @@
 from math import sqrt
 from src.constants import TWO_PI, G, MU_SUN
-from src.tools.astrodynamics import solve_ellipse_semi_major_axis
 
 Sun = {
     'name'            : 'Sun',
